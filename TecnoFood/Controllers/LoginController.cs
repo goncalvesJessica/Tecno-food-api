@@ -7,7 +7,7 @@ using TecnoFood.Services;
 namespace TecnoFood.Controllers
 {
     [ApiController]
-    [Route("v1")]
+    [Route("[controller]")]
     public class LoginController : ControllerBase
     {
         private readonly Context _context;
@@ -18,7 +18,6 @@ namespace TecnoFood.Controllers
         }
 
         [HttpPost]
-        [Route("login")]
         public IActionResult AuthenticateAsync([FromBody] LoginUserCommand login)
         {
             //Recuperar o usuario

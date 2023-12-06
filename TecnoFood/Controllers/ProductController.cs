@@ -18,25 +18,25 @@ namespace TecnoFood.Controllers
         }
 
         [HttpPost]
-        public IActionResult AdicionaProduct([FromBody] CreateProductCommand command)
+        public IActionResult AddProduct([FromBody] CreateProductCommand command)
         {
             Product product = new(command);
             _context.Products.Add(product);
             _context.SaveChanges();
 
-            return CreatedAtAction(nameof(RecuperarProductPorId),
+            return CreatedAtAction(nameof(AddProduct),
                 new { id = product.Id },
                 product);
         }
 
         [HttpGet]
-        public IEnumerable<Product> RecuperarProducts()
+        public IEnumerable<Product> GetProducts()
         {
             return _context.Products;
         }
 
         [HttpGet("{id}")]
-        public IActionResult RecuperarProductPorId(int id)
+        public IActionResult GetProductPorId(int id)
         {
             var product = _context.Products.FirstOrDefault(x => x.Id.Equals(id));
             if (product == null) return NotFound();
@@ -45,7 +45,7 @@ namespace TecnoFood.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult AtualizarProduct(int id, [FromBody] UpdateProductCommand command)
+        public IActionResult PutProduct(int id, [FromBody] UpdateProductCommand command)
         {
             var product = _context.Products.FirstOrDefault(x => x.Id == id);
             if (product == null) return NotFound();

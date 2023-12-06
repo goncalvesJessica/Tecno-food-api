@@ -19,26 +19,26 @@ namespace TecnoFood.Controllers
         }
 
         [HttpPost]
-        public IActionResult AdicionaUser([FromBody] CreateUserCommand command)
+        public IActionResult AddUser([FromBody] CreateUserCommand command)
         {
             User user = new(command);
             _context.Users.Add(user);
             _context.SaveChanges();
 
-            return CreatedAtAction(nameof(AdicionaUser),
+            return CreatedAtAction(nameof(AddUser),
                 new { id = user.Id },
                 user);
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public IEnumerable<User> RecuperarUsers()
+        public IEnumerable<User> GetUsers()
         {
             return _context.Users;
         }
 
         [HttpGet("{id}")]
-        public IActionResult RecuperarUserPorId(int id)
+        public IActionResult GetUserPorId(int id)
         {
             var User = _context.Users.FirstOrDefault(User => User.Id == id);
 
@@ -48,7 +48,7 @@ namespace TecnoFood.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult AtualizarUser(int id, [FromBody] UpdateUserCommand command)
+        public IActionResult PutUser(int id, [FromBody] UpdateUserCommand command)
         {
             var user = _context.Users.FirstOrDefault(User => User.Id == id);
             if (user == null) return NotFound();
